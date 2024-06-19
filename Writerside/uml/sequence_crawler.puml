@@ -1,0 +1,146 @@
+@startuml
+participant Actor
+Actor -> WebCrawlerSchedulerEventListener : onApplicationEvent
+activate WebCrawlerSchedulerEventListener
+WebCrawlerSchedulerEventListener -> WebCrawlerSchedulerEventListener : init
+activate WebCrawlerSchedulerEventListener
+WebCrawlerSchedulerEventListener -> ConfigManagerService : loadProperties
+activate ConfigManagerService
+ConfigManagerService -> FileManagerService : checkFilesAndDirectoriesURLs
+activate FileManagerService
+alt Files.exists(urlsDirectory) && Files.exists(urlsFile)
+else
+alt !Files.exists(urlsDirectory)
+end
+alt !Files.exists(urlsFile)
+end
+end
+FileManagerService --> ConfigManagerService
+deactivate FileManagerService
+ConfigManagerService -> FileManagerService : checkFilesAndDirectoriesProxies
+activate FileManagerService
+alt Files.exists(proxiesDirectory) && Files.exists(proxiesFile)
+else
+alt !Files.exists(proxiesDirectory)
+end
+alt !Files.exists(proxiesFile)
+end
+end
+FileManagerService --> ConfigManagerService
+deactivate FileManagerService
+ConfigManagerService -> FileManagerService : checkFilesAndDirectoriesUserAgents
+activate FileManagerService
+alt Files.exists(userAgentsDirectory) && Files.exists(userAgentsFile)
+else
+alt !Files.exists(userAgentsDirectory)
+end
+alt !Files.exists(userAgentsFile)
+end
+end
+FileManagerService --> ConfigManagerService
+deactivate FileManagerService
+alt fileManagerService.checkFilesAndDirectoriesURLs() && fileManagerService.checkFilesAndDirectoriesProxies() && fileManagerService.checkFilesAndDirectoriesUserAgents()
+ConfigManagerService -> FileManagerService : readUrlsFromFile
+activate FileManagerService
+FileManagerService -> FileManagerService : readLinesFromFile
+activate FileManagerService
+FileManagerService --> FileManagerService
+deactivate FileManagerService
+FileManagerService --> ConfigManagerService
+deactivate FileManagerService
+ConfigManagerService -> FileManagerService : readProxiesFromFile
+activate FileManagerService
+FileManagerService -> FileManagerService : readLinesFromFile
+activate FileManagerService
+FileManagerService --> FileManagerService
+deactivate FileManagerService
+FileManagerService --> ConfigManagerService
+deactivate FileManagerService
+ConfigManagerService -> FileManagerService : readUserAgentsFromFile
+activate FileManagerService
+FileManagerService -> FileManagerService : readLinesFromFile
+activate FileManagerService
+FileManagerService --> FileManagerService
+deactivate FileManagerService
+FileManagerService --> ConfigManagerService
+deactivate FileManagerService
+end
+alt input == null
+end
+alt urlsProp != null
+ConfigManagerService -> FileManagerService : createOrUpdateUrlsFile
+activate FileManagerService
+alt !Files.exists(urlsFile)
+else
+end
+FileManagerService --> ConfigManagerService
+deactivate FileManagerService
+end
+alt proxiesProp != null
+ConfigManagerService -> FileManagerService : createOrUpdateProxiesFile
+activate FileManagerService
+alt !Files.exists(proxiesFile)
+else
+end
+FileManagerService --> ConfigManagerService
+deactivate FileManagerService
+end
+alt userAgentsProp != null
+ConfigManagerService -> FileManagerService : createOrUpdateUserAgentsFile
+activate FileManagerService
+alt !Files.exists(userAgentsFile)
+else
+end
+FileManagerService --> ConfigManagerService
+deactivate FileManagerService
+end
+ConfigManagerService --> WebCrawlerSchedulerEventListener
+deactivate ConfigManagerService
+WebCrawlerSchedulerEventListener -> WebCrawlerSchedulerEventListener : loadCaches
+activate WebCrawlerSchedulerEventListener
+WebCrawlerSchedulerEventListener --> WebCrawlerSchedulerEventListener
+deactivate WebCrawlerSchedulerEventListener
+WebCrawlerSchedulerEventListener -> WebCrawlerSchedulerEventListener : startWebCrawler
+activate WebCrawlerSchedulerEventListener
+loop urls
+WebCrawlerSchedulerEventListener -> WebCrawlerSchedulerEventListener : () ->
+activate WebCrawlerSchedulerEventListener
+WebCrawlerSchedulerEventListener -> WebCrawlerSchedulerEventListener : fetchRobotsTxt
+activate WebCrawlerSchedulerEventListener
+WebCrawlerSchedulerEventListener -> URLService : normalizeUrl
+activate URLService
+URLService --> WebCrawlerSchedulerEventListener
+deactivate URLService
+WebCrawlerSchedulerEventListener -> WebCrawlerService : fetchRobotsUrls
+activate WebCrawlerService
+WebCrawlerService --> WebCrawlerSchedulerEventListener
+deactivate WebCrawlerService
+WebCrawlerSchedulerEventListener --> WebCrawlerSchedulerEventListener
+deactivate WebCrawlerSchedulerEventListener
+WebCrawlerSchedulerEventListener --> WebCrawlerSchedulerEventListener
+deactivate WebCrawlerSchedulerEventListener
+end
+loop urls
+WebCrawlerSchedulerEventListener -> WebCrawlerSchedulerEventListener : () ->
+activate WebCrawlerSchedulerEventListener
+WebCrawlerSchedulerEventListener -> WebCrawlerSchedulerEventListener : fetchSitemap
+activate WebCrawlerSchedulerEventListener
+WebCrawlerSchedulerEventListener -> URLService : normalizeUrl
+activate URLService
+URLService --> WebCrawlerSchedulerEventListener
+deactivate URLService
+WebCrawlerSchedulerEventListener -> WebCrawlerService : fetchSitemapUrls
+activate WebCrawlerService
+WebCrawlerService --> WebCrawlerSchedulerEventListener
+deactivate WebCrawlerService
+WebCrawlerSchedulerEventListener --> WebCrawlerSchedulerEventListener
+deactivate WebCrawlerSchedulerEventListener
+WebCrawlerSchedulerEventListener --> WebCrawlerSchedulerEventListener
+deactivate WebCrawlerSchedulerEventListener
+end
+WebCrawlerSchedulerEventListener --> WebCrawlerSchedulerEventListener
+deactivate WebCrawlerSchedulerEventListener
+WebCrawlerSchedulerEventListener --> WebCrawlerSchedulerEventListener
+deactivate WebCrawlerSchedulerEventListener
+return
+@enduml

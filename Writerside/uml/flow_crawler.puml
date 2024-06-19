@@ -1,0 +1,29 @@
+@startuml
+
+start
+
+:Application Event Triggered (ContextRefreshedEvent);
+:Init Method;
+note right
+  Log System Properties
+  Load Properties
+  Load URL, Proxy, and User-Agent Caches
+end note
+
+:Start Web Crawler;
+fork
+  :Fetch Robots.txt for each URL;
+  :Handle Errors;
+fork again
+  :Fetch Sitemap.xml for each URL;
+  :Handle Errors;
+end fork
+
+note right
+  Optional Monitoring and Cleanup Activities
+end note
+
+:Shutdown and Cleanup (Optional);
+stop
+
+@enduml

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rules SYSTEM "https://resources.jetbrains.com/writerside/1.0/redirection-rules.dtd">
+<rules>
+    <!-- format is as follows
+    <rule id="<unique id>">
+        <accepts>page.html</accepts>
+    </rule>
+    -->
+    <rule id="f758a08">
+        <description>Created after removal of "Fluxograma do crawler" from Crawler Genesis Documentation</description>
+        <accepts>Fluxograma-do-crawler.html</accepts>
+    </rule>
+    <rule id="1018dccc">
+        <description>Created after removal of "Diagramação do crawler" from Crawler Genesis Documentation</description>
+        <accepts>Diagramação-do-crawler.html</accepts>
+    </rule>
+</rules>

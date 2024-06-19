@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="in"
+                 name="Crawler Genesis Documentation"
+                 start-page="starter.md">
+
+    <toc-element topic="starter.md"/>
+    <toc-element topic="How-to-works.md"/>
+    <toc-element topic="Inicialização-do-crawler.md">
+        <toc-element topic="Menu-principal.md">
+            <toc-element topic="Show-Notificações.md"/>
+            <toc-element topic="Show-URLs.md"/>
+        </toc-element>
+    </toc-element>
+</instance-profile>
