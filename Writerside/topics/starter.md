@@ -9,9 +9,11 @@ You can use it as a sandbox to play with Writerside features, and remove it from
 
 ## Funcionamento
 
-O %product% possui duas etapas: 
-- A **primeira etapa** é a coleta de dados, onde o sistema busca informações em sites de produtos e os salva em <tooltip term="HTML">HTML</tooltip>, <tooltip term="HTML">JSON</tooltip> ou <tooltip term="HTML">PDF</tooltip>.
-> No futuro haverá a coleta de dados com printscreen.
+O %CRAWLER% possui duas etapas: 
+- A **primeira etapa** é a coleta de dados, onde o sistema busca informações em sites de produtos e os salva em <tooltip term="HTML">HTML</tooltip>, <tooltip term="JSON">JSON</tooltip> ou <tooltip term="PDF">PDF</tooltip>.
+<note>
+    No futuro haverá a coleta de dados com printscreen.
+</note>
 - A **segunda etapa** é a análise dos dados coletados, onde o sistema verifica e extrai os dados para um arquivo CSV.
 
 ## Primeira etapa
@@ -45,51 +47,28 @@ A segunda etapa é a análise dos dados coletados, onde o sistema verifica e ext
 
 ## Comunicação entre os sistemas
 
-O Crawler Genesis se comunica com o sistema de extração de dados por meio de **<tooltip term="Nostr">Nostr</tooltip>**. Além disso, o crawler também faz uso do **<tooltip term="IPFS">IPFS</tooltip>** para armazenar os páginas coletadas.
+O Crawler Genesis se comunica com o sistema de extração de dados por meio de **<tooltip term="Nostr">Nostr</tooltip>**. 
+Além disso, o crawler também faz uso do **<tooltip term="IPFS">IPFS</tooltip>** para armazenar os páginas coletadas e disponibilizar o acesso ao **Extractor**.
 
-![Create new topic options](new_topic_options.png){ width=290 }{border-effect=line}
 
-## Write content
-%product% supports two types of markup: Markdown and XML.
-When you create a new help article, you can choose between two topic types, but this doesn't mean you have to stick to a single format.
-You can author content in Markdown and extend it with semantic attributes or inject entire XML elements.
+![comunicacao_entre_os_sistemas.png](comunicacao_entre_os_sistemas.png){ width=550 }
 
-## Inject XML
-For example, this is how you inject a procedure:
+## Crawler
+ 
+- Extrai os HTMLs das páginas e salva em um pasta chamada _Pages_.
 
-<procedure title="Inject a procedure" id="inject-a-procedure">
-    <step>
-        <p>Start typing and select a procedure type from the completion suggestions:</p>
-        <img src="completion_procedure.png" alt="completion suggestions for procedure" border-effect="line"/>
-    </step>
-    <step>
-        <p>Press <shortcut>Tab</shortcut> or <shortcut>Enter</shortcut> to insert the markup.</p>
-    </step>
-</procedure>
+- Os arquivos são compactados em **<tooltip term="GZIP">GZIP</tooltip>**.
 
-## Add interactive elements
+- Depois de compactado o arquivo é enviado para o gateway do **<tooltip term="IPFS">IPFS</tooltip>**, o **<tooltip term="IPFS">IPFS</tooltip>** gera um hash do arquivo e então, eu envio esse hash via **<tooltip term="Nostr">Nostr</tooltip>** para o Extractor. O Extractor desconhece essa informação do hash, então preciso informar do que se trata, pela mensagem que está sendo enviada via **<tooltip term="NOSTR">Nostr</tooltip>**.
 
-### Tabs
-To add switchable content, you can make use of tabs (inject them by starting to type `tab` on a new line):
+Pensei em enviar uma mensagem com o hash do arquivo, tipo de arquivo, qual a origem da página, no caso o host, também adicionar a data de envio.
 
-<tabs>
-    <tab title="Markdown">
-        <code-block lang="plain text">![Alt Text](new_topic_options.png){ width=450 }</code-block>
-    </tab>
-    <tab title="Semantic markup">
-        <code-block lang="xml">
-            <![CDATA[<img src="new_topic_options.png" alt="Alt text" width="450px"/>]]></code-block>
-    </tab>
-</tabs>
+## Extractor
 
-### Collapsible blocks
-Apart from injecting entire XML elements, you can use attributes to configure the behavior of certain elements.
-For example, you can collapse a chapter that contains non-essential information:
+O extractor fica ligado à espera de uma mensagem do relay do **<tooltip term="Nostr">Nostr</tooltip>**, quando a informação chegar, ele é instruído a fazer algo.
 
-#### Supplementary info {collapsible="true"}
-Content under a collapsible header will be collapsed by default,
-but you can modify the behavior by adding the following attribute:
-`default-state="expanded"`
+- Baixar o arquivo do **<tooltip term="IPFS">IPFS</tooltip>**.
+- Extrair o **<tooltip term="HTML">HTML</tooltip>** para um ficheiro **<tooltip term="CSV">CSV</tooltip>**.
 
 ### Convert selection to XML
 If you need to extend an element with more functions, you can convert selected content from Markdown to semantic markup.

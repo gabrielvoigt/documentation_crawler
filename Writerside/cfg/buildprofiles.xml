@@ -18,6 +18,10 @@
 
     <build-profile instance="in">
         <variables>
+            <download-title>Git repository</download-title>
+            <download-page>https://github.com/gabrielvoigt/crawlergenesis.git</download-page>
+            <showDownloadButton>true</showDownloadButton>
+            <custom-favicons></custom-favicons>
             <noindex-content>true</noindex-content>
         </variables>
     </build-profile>
