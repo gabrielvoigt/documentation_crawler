@@ -8,6 +8,7 @@
 
     <toc-element topic="starter.md"/>
     <toc-element topic="How-to-works.md"/>
+    <toc-element topic="Organização-das-pastas.md"/>
     <toc-element topic="Inicialização-do-crawler.md">
         <toc-element topic="Menu-principal.md">
             <toc-element topic="Show-Notificações.md"/>

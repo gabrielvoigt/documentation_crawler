@@ -22,7 +22,7 @@ A primeira etapa é a coleta de dados, onde o sistema salva as páginas dos prod
 
 <img src="Crawler_genesis-Primeira Etapa.png" alt="First step" border-effect="line" title="First Step"/>
 
-> **Veja como funciona o [Crawler](How-to-works.md)**
+> **Veja como funciona o [Crawler](How-to-works.md#crawler)**
 
 ## Segunda etapa
 
@@ -32,7 +32,7 @@ A segunda etapa é a análise dos dados coletados, onde o sistema verifica e ext
 
 
 
-> **Veja como funciona o [Extrator de dados](How-to-works.md)**
+> **Veja como funciona o [Extrator de dados](How-to-works.md#extractor)**
 
 > **todo: fazer o link direto para o tópico correspodente. 
 > (ancora) Adicionar topico de como baixar o projeto do git. 
@@ -44,31 +44,6 @@ A segunda etapa é a análise dos dados coletados, onde o sistema verifica e ext
 > Fazer versionamento dos arquivos de configuração via git
 > Fazer um tópico sobre o Teste no sistema via playwriting, selenium**
 {style="warning"}
-
-## Comunicação entre os sistemas
-
-O Crawler Genesis se comunica com o sistema de extração de dados por meio de **<tooltip term="Nostr">Nostr</tooltip>**. 
-Além disso, o crawler também faz uso do **<tooltip term="IPFS">IPFS</tooltip>** para armazenar os páginas coletadas e disponibilizar o acesso ao **Extractor**.
-
-
-![comunicacao_entre_os_sistemas.png](comunicacao_entre_os_sistemas.png){ width=550 }
-
-## Crawler
- 
-- Extrai os HTMLs das páginas e salva em um pasta chamada _Pages_.
-
-- Os arquivos são compactados em **<tooltip term="GZIP">GZIP</tooltip>**.
-
-- Depois de compactado o arquivo é enviado para o gateway do **<tooltip term="IPFS">IPFS</tooltip>**, o **<tooltip term="IPFS">IPFS</tooltip>** gera um hash do arquivo e então, eu envio esse hash via **<tooltip term="Nostr">Nostr</tooltip>** para o Extractor. O Extractor desconhece essa informação do hash, então preciso informar do que se trata, pela mensagem que está sendo enviada via **<tooltip term="NOSTR">Nostr</tooltip>**.
-
-Pensei em enviar uma mensagem com o hash do arquivo, tipo de arquivo, qual a origem da página, no caso o host, também adicionar a data de envio.
-
-## Extractor
-
-O extractor fica ligado à espera de uma mensagem do relay do **<tooltip term="Nostr">Nostr</tooltip>**, quando a informação chegar, ele é instruído a fazer algo.
-
-- Baixar o arquivo do **<tooltip term="IPFS">IPFS</tooltip>**.
-- Extrair o **<tooltip term="HTML">HTML</tooltip>** para um ficheiro **<tooltip term="CSV">CSV</tooltip>**.
 
 ### Convert selection to XML
 If you need to extend an element with more functions, you can convert selected content from Markdown to semantic markup.

@@ -10,3 +10,27 @@ O **Show Notifications** exibe todas as notificações do sistema.
 ```Bash
 cw show notifications
 ```
+
+## Command
+
+Syntax:
+
+```shell
+cmd [OPTIONS]
+```
+
+## Options
+
+Describe what each option is used for:
+
+-o, --open
+: Opens a file.
+
+-c, --close
+: Closes a file.
+
+-v, --version
+: Displays version information.
+
+-h, --help
+: Displays help.

@@ -21,7 +21,7 @@
             <download-title>Git repository</download-title>
             <download-page>https://github.com/gabrielvoigt/crawlergenesis.git</download-page>
             <showDownloadButton>true</showDownloadButton>
-            <custom-favicons></custom-favicons>
+            <custom-favicons>icon_monitor_magnify_16x16.ico,icon_monitor_magnify_32x32.ico</custom-favicons>
             <noindex-content>true</noindex-content>
         </variables>
     </build-profile>
